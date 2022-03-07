@@ -1,0 +1,117 @@
+<p>form works!</p>
+<body>
+    <div class="container">
+        <div class="title">Registration</div>
+        <div class="content">
+            <form [formGroup]="registrationForm" #f = "ngForm" (ngSubmit)="onClickSubmit()">
+                <div class="user-details"></div>
+
+                    <div class="user-details">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>First name</mat-label>
+                                <input matInput name="firstname" type="text" formControlName="firstname">
+                                    <mat-error *ngIf="registrationForm.controls['firstname'].hasError('required')">
+                                        The Firstname field is <strong>required</strong>...
+                                    </mat-error>
+                        </mat-form-field><pre></pre>
+
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Last Name</mat-label>
+                                <input matInput name="lastname" type="text" formControlName="lastname">
+                                <mat-error *ngIf="registrationForm.controls['lastname'].hasError('required')">
+                                    The Lastname field is <strong>required</strong>...
+                                </mat-error>
+                        </mat-form-field><pre></pre>
+
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input matInput type="email" placeholder="Ex. pat@example.com" formControlName="email">
+                                <mat-error *ngIf="registrationForm.controls['email'].hasError('email') && !registrationForm.controls['email'].hasError('required')">
+                                    Please enter a valid email address
+                                </mat-error>
+                                <mat-error *ngIf="registrationForm.controls['email'].hasError('required')">
+                                    Email is <strong>required</strong>
+                                </mat-error>
+                        </mat-form-field><pre></pre>
+
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Mobile No.</mat-label>
+                            <input matInput name="mobile" type="number" formControlName="mobile">
+                                <mat-error *ngIf="registrationForm.controls['mobile'].hasError('pattern')">
+                                    Please enter a valid Mobile number
+                                </mat-error>
+                                <mat-error *ngIf="registrationForm.controls['mobile'].hasError('required')">
+                                    Mobile number is <strong>required</strong>
+                                </mat-error>
+                        </mat-form-field><pre></pre>
+
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Hobbies</mat-label>
+                            <mat-select name="hobbies" multiple formControlName="hobbies">
+                                <mat-option *ngFor="let hobbie of hobbies" [value]="hobbie.id">{{hobbie.name}}</mat-option>
+                            </mat-select>
+                                <mat-error *ngIf="registrationForm.controls['hobbies'].hasError('required')">
+                                    Hobbies field is <strong>required</strong>...
+                                </mat-error>
+                        </mat-form-field><pre></pre>
+
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Choose Birth date</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="registrationForm.controls['date'].hasError('required')">
+                                Date field is <strong>required</strong>...
+                            </mat-error>
+                        </mat-form-field><pre></pre>
+
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Password</mat-label>
+                            <input matInput type="password" name="password" formControlName="password">
+                                <mat-error *ngIf="registrationForm.controls['password'].hasError('required')">
+                                    Password is <strong>required</strong>
+                                </mat-error>
+                                <mat-error *ngIf="registrationForm.controls['password'].hasError('pattern')">
+                                    Please enter a strong password
+                                </mat-error>
+                        </mat-form-field><pre></pre>
+    
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Conform Password</mat-label>
+                            <input matInput type="password" name="cpassword" formControlName="cpassword">
+                                <mat-error *ngIf="registrationForm.controls['cpassword'].hasError('required')">
+                                    Conform Password is <strong>required</strong>
+                                </mat-error>
+                                <mat-error *ngIf="registrationForm.controls['cpassword'].hasError('confirmedValidator')">
+                                    Please enter valid password
+                                </mat-error>
+                        </mat-form-field><pre></pre>
+
+                    </div>
+
+                    <mat-form-field class="form-group" appearance="fill">
+                        <mat-label>Address</mat-label>
+                        <textarea matInput name="address" type="text" placeholder="Enter your address..." formControlName="address"></textarea>
+                            <mat-error *ngIf="registrationForm.controls['address'].hasError('required')">
+                                The Address field is <strong>required</strong>...
+                            </mat-error>
+                            <mat-error *ngIf="registrationForm.controls['address'].hasError('minlength') || registrationForm.controls['address'].hasError('maxlength')">
+                                Enter valid address...
+                            </mat-error>
+                    </mat-form-field><pre></pre>
+
+                    <div class="gender-details">
+                        <mat-label class="gender-title">Gender</mat-label>
+                            <mat-radio-group class="gender" value="1"><td></td>
+                                    <mat-radio-button value="0">Male</mat-radio-button><td></td>
+                                    <mat-radio-button value="1">Female</mat-radio-button><td></td>
+                            </mat-radio-group>
+                            <pre></pre>
+                    </div>
+
+                <button mat-raised-button type="submit" (click)="formSubmit()" >Submit</button>  
+
+            </form>
+        </div>
+    </div>
+</body>
