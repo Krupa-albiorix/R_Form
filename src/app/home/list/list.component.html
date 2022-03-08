@@ -1,1 +1,23 @@
 <p>list works!</p>
+
+<div>
+    <table>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Birthdate</th>
+            <th>Hobbies</th>
+        </tr>
+        <tr *ngFor="let datas of data">
+            <td>{{ datas.firstname }}</td>
+            <td>{{ datas.lastname }}</td>
+            <td>{{ datas.email }}</td>
+            <td>{{ datas.mobile }}</td>
+            <td>{{ datas.date | date:"MM/dd/yy" }}</td>
+            <td>{{ datas.hobbies | hobbies }}</td>
+            <button [routerLink]="['../form']" onclick="onClickEdit(id)">Edit</button>
+        </tr>
+    </table>
+</div>

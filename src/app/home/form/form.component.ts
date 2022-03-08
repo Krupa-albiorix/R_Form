@@ -1,3 +1,4 @@
+import { identifierName } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmedValidator } from '../../Validator/confirmed.validator';
@@ -37,9 +38,12 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.createRegistrationForm();
   }
+
   onClickSubmit() {
+    var id = new Date().getTime().toString();
     console.log(this.registrationForm.value);
     this.user = Object.assign(this.user, this.registrationForm.value);
+    this.user.id = id;
     this.addUser(this.user);
   }
 
@@ -54,14 +58,6 @@ export class FormComponent implements OnInit {
     }
     localStorage.setItem('Users', JSON.stringify(users));
   }
-
-  // onClickSubmit(data : any) {
-  //   this.myitem = localStorage.getItem(data);
-  //   console.log(this.myitem);
-  // }
-  // key(key: any): any {
-  //   throw new Error('Method not implemented.');
-  // }
 
   formSubmit() {
     console.log(this.registrationForm)
