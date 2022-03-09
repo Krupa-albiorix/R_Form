@@ -4,16 +4,23 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { ListComponent } from './list/list.component';
 import { HobbiesPipe } from './hobbies.pipe';
+import { UpdateComponent } from './update/update.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatComponentsModule } from '../mat-components.module';
 
 
 @NgModule({
   declarations: [
     ListComponent,
-    HobbiesPipe
+    HobbiesPipe,
+    UpdateComponent
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatComponentsModule
   ]
 })
 export class HomeModule { }

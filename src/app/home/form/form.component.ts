@@ -1,4 +1,3 @@
-import { identifierName } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmedValidator } from '../../Validator/confirmed.validator';
@@ -59,9 +58,9 @@ export class FormComponent implements OnInit {
     localStorage.setItem('Users', JSON.stringify(users));
   }
 
-  formSubmit() {
-    console.log(this.registrationForm)
-  }
+  // formSubmit() {
+  //   console.log(this.registrationForm)
+  // }
 
   hobbies = [
     { id : 1, name : 'Reading' },

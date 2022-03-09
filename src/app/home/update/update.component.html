@@ -1,9 +1,9 @@
-<p>form works!</p>
+<p>update works!</p>
 <body>
     <div class="container">
         <div class="title">Registration</div>
         <div class="content">
-            <form [formGroup]="registrationForm" #f = "ngForm" (ngSubmit)="onClickSubmit()">
+            <form [formGroup]="registrationForm" #f = "ngForm" (ngSubmit)="updateUser()">
                 <div class="user-details"></div>
 
                     <div class="user-details">
@@ -109,7 +109,7 @@
                             <pre></pre>
                     </div>
 
-                <button mat-raised-button type="submit">Submit</button>  
+                <button mat-raised-button type="submit" (click)="updateUser()">Update</button>  
 
             </form>
         </div>
