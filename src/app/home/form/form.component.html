@@ -6,6 +6,15 @@
             <form [formGroup]="registrationForm" #f = "ngForm" (ngSubmit)="onClickSubmit()">
                 <div class="user-details"></div>
 
+                    <div class="choice-details">
+                        <mat-label class="choice-title">Register with:</mat-label>
+                            <mat-radio-group class="choice" formControlName="choice"><td></td>
+                                    <mat-radio-button value="email">Email</mat-radio-button><td></td>
+                                    <mat-radio-button value="username">Username</mat-radio-button><td></td>
+                            </mat-radio-group>
+                            <pre></pre>
+                    </div>
+
                     <div class="user-details">
                         <mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>First name</mat-label>
@@ -35,6 +44,14 @@
                         </mat-form-field><pre></pre>
 
                         <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Username</mat-label>
+                            <input matInput name="username" type="text" formControlName="username">
+                                <mat-error *ngIf="registrationForm.controls['username'].hasError('required')">
+                                    Username number is <strong>required</strong>
+                                </mat-error>
+                        </mat-form-field><pre></pre>
+
+                        <mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Mobile No.</mat-label>
                             <input matInput name="mobile" type="number" formControlName="mobile">
                                 <mat-error *ngIf="registrationForm.controls['mobile'].hasError('pattern')">
@@ -42,16 +59,6 @@
                                 </mat-error>
                                 <mat-error *ngIf="registrationForm.controls['mobile'].hasError('required')">
                                     Mobile number is <strong>required</strong>
-                                </mat-error>
-                        </mat-form-field><pre></pre>
-
-                        <mat-form-field class="example-full-width" appearance="fill">
-                            <mat-label>Hobbies</mat-label>
-                            <mat-select name="hobbies" multiple formControlName="hobbies">
-                                <mat-option *ngFor="let hobbie of hobbies" [value]="hobbie.id">{{hobbie.name}}</mat-option>
-                            </mat-select>
-                                <mat-error *ngIf="registrationForm.controls['hobbies'].hasError('required')">
-                                    Hobbies field is <strong>required</strong>...
                                 </mat-error>
                         </mat-form-field><pre></pre>
 
@@ -87,6 +94,16 @@
                                 </mat-error>
                         </mat-form-field><pre></pre>
 
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Hobbies</mat-label>
+                            <mat-select name="hobbies" multiple formControlName="hobbies">
+                                <mat-option *ngFor="let hobbie of hobbies" [value]="hobbie.id">{{hobbie.name}}</mat-option>
+                            </mat-select>
+                                <mat-error *ngIf="registrationForm.controls['hobbies'].hasError('required')">
+                                    Hobbies field is <strong>required</strong>...
+                                </mat-error>
+                        </mat-form-field><pre></pre>
+
                     </div>
 
                     <mat-form-field class="form-group" appearance="fill">
@@ -106,8 +123,30 @@
                                     <mat-radio-button value="0">Male</mat-radio-button><td></td>
                                     <mat-radio-button value="1">Female</mat-radio-button><td></td>
                             </mat-radio-group>
-                            <pre></pre>
+                    </div><pre></pre>
+
+                    <div class="title"> Profational Details </div>
+
+                    <div class="user-details">
+                        <ng-container formArrayName="details">
+                            <ng-container *ngFor="let detailForm of details.controls; let i = index">
+                                <div class="example-full-width" [formGroup]="detailForm">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Skill</mat-label>
+                                            <input matInput name="skill" type="text" formControlName="skill">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Experience</mat-label>
+                                            <input matInput name="experience" type="number" formControlName="experience">
+                                    </mat-form-field>
+                                    <mat-icon (click)="deleteDetail(i)">remove_circle</mat-icon>
+                                </div>
+                            </ng-container>
+                        </ng-container>
                     </div>
+                    <button mat-mini-fab (click)="addDetail()">
+                        <mat-icon aria-hidden="false">add_circle</mat-icon>
+                    </button>
 
                 <button mat-raised-button type="submit">Submit</button>  
 

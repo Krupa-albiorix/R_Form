@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HobbiesPipe } from '../pipes/hobbies.pipe';
 
 @Component({
   selector: 'app-list',

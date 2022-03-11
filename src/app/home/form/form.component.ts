@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ConfirmedValidator } from '../../Validator/confirmed.validator';
 
 @Component({
@@ -13,6 +13,7 @@ export class FormComponent implements OnInit {
 
   registrationForm! : FormGroup;
   user : any = {};
+  detailForm! : FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
     
@@ -20,22 +21,59 @@ export class FormComponent implements OnInit {
 
   createRegistrationForm() {
     this.registrationForm = this.formBuilder.group({
+      choice: ['email',],
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.email]],
       address: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
       hobbies: ['', [Validators.required]],
       mobile: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      username: [''],
       date: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.pattern("^([a-zA-Z0-9@*#]{8,15})$")]],
-      cpassword: ['', [Validators.required]]
+      cpassword: ['', [Validators.required]],
+      details: this.formBuilder.array([])
     }, { 
       validator: ConfirmedValidator('password', 'cpassword')
     });
   }
 
+  get details() {
+    return this.registrationForm.controls["details"] as FormArray;
+  }
+
+  addDetail() {
+    this.detailForm = this.formBuilder.group({
+      skill: ['', [Validators.required]],
+      experience: ['', [Validators.required]]
+    });
+    this.details.push(this.detailForm);
+  }
+
+  deleteDetail(detailIndex: number) {
+    this.details.removeAt(detailIndex);
+  }
+
   ngOnInit(): void {
     this.createRegistrationForm();
+    // this.addDetail();
+    this.registrationForm.controls['choice'].valueChanges.subscribe(
+      (selectedValue) => {
+        console.log(selectedValue);
+        console.log(this.registrationForm);
+        if(selectedValue !== 'email') {
+          this.registrationForm.controls['email'].setValidators(null);
+          this.registrationForm.controls['email'].updateValueAndValidity();
+          this.registrationForm.controls['username'].setValidators([Validators.required]);
+          this.registrationForm.controls['username'].updateValueAndValidity();
+        } else {                
+          this.registrationForm.controls['username'].setValidators(null);
+          this.registrationForm.controls['username'].updateValueAndValidity();
+          this.registrationForm.controls['email'].setValidators([Validators.required]);
+          this.registrationForm.controls['email'].updateValueAndValidity();
+        }
+      }
+    );
   }
 
   onClickSubmit() {
@@ -58,10 +96,6 @@ export class FormComponent implements OnInit {
     localStorage.setItem('Users', JSON.stringify(users));
   }
 
-  // formSubmit() {
-  //   console.log(this.registrationForm)
-  // }
-
   hobbies = [
     { id : 1, name : 'Reading' },
     { id : 2, name : 'Cooking' },
@@ -70,3 +104,7 @@ export class FormComponent implements OnInit {
   ];
 
 }
+function clearValidators() {
+  throw new Error('Function not implemented.');
+}
+
