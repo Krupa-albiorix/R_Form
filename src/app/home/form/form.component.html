@@ -1,10 +1,12 @@
 <p>form works!</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
 <body>
     <div class="container">
         <div class="title">Registration</div>
         <div class="content">
             <form [formGroup]="registrationForm" #f = "ngForm" (ngSubmit)="onClickSubmit()">
-                <div class="user-details"></div>
+                <!-- <div class="user-details"></div> -->
 
                     <div class="choice-details">
                         <mat-label class="choice-title">Register with:</mat-label>
@@ -53,7 +55,7 @@
 
                         <mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Mobile No.</mat-label>
-                            <input matInput name="mobile" type="number" formControlName="mobile">
+                            <input matInput mask='(000) 000-0000' name="mobile" type="text" formControlName="mobile">
                                 <mat-error *ngIf="registrationForm.controls['mobile'].hasError('pattern')">
                                     Please enter a valid Mobile number
                                 </mat-error>
@@ -130,7 +132,7 @@
                     <div class="user-details">
                         <ng-container formArrayName="details">
                             <ng-container *ngFor="let detailForm of details.controls; let i = index">
-                                <div class="example-full-width" [formGroup]="detailForm">
+                                <div [formGroupName]="i" class="example-full-width">
                                     <mat-form-field appearance="fill">
                                         <mat-label>Skill</mat-label>
                                             <input matInput name="skill" type="text" formControlName="skill">
@@ -148,8 +150,7 @@
                         <mat-icon aria-hidden="false">add_circle</mat-icon>
                     </button>
 
-                <button mat-raised-button type="submit">Submit</button>  
-
+                <button class="submit" mat-raised-button type="submit">Submit</button>  
             </form>
         </div>
     </div>

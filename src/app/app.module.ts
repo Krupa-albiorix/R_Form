@@ -12,7 +12,7 @@ import { MatComponentsModule } from './mat-components.module';
 @NgModule({
   declarations: [
     AppComponent,
-    FormComponent,
+    // FormComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { ConfirmedValidator } from '../../Validator/confirmed.validator';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
+
 export class FormComponent implements OnInit {
 
   title = "Registration Form";
@@ -44,8 +45,8 @@ export class FormComponent implements OnInit {
 
   addDetail() {
     this.detailForm = this.formBuilder.group({
-      skill: ['', [Validators.required]],
-      experience: ['', [Validators.required]]
+      skill: ['', Validators.required],
+      experience: ['', Validators.required]
     });
     this.details.push(this.detailForm);
   }
@@ -56,7 +57,6 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.createRegistrationForm();
-    // this.addDetail();
     this.registrationForm.controls['choice'].valueChanges.subscribe(
       (selectedValue) => {
         console.log(selectedValue);
@@ -102,8 +102,8 @@ export class FormComponent implements OnInit {
     { id : 3, name : 'Playing Cricket' },
     { id : 4, name : 'Listening Music' }
   ];
-
 }
+
 function clearValidators() {
   throw new Error('Function not implemented.');
 }
